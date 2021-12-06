@@ -26,10 +26,11 @@ class VendorRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'logo' => 'required_without:id|mimes:jpg,jpeg,png',
-            'mobile' => 'required|max:100',
-            'email' => 'sometimes|nullable|email',
+            'mobile' => 'required|max:100|unique:vendors,mobile,'.$this -> id,
+            'email' => 'required|email|unique:vendors,email,'.$this -> id, //بقوله unique الا ف حاله انه نفس اليوزر
             'address' => 'required|string|max:500',
             'category_id' => 'required|exists:main_categories,id',
+            'password' => 'required_without:id|',
         ];
     }
 
@@ -42,7 +43,9 @@ class VendorRequest extends FormRequest
             'address.string' => ' العنوان لابد ان يكون حروف',
             'category_id.exists' => 'القسم غير موجود',
             'email.email' => 'سيغه البريد الالكتروني غير صحيحه',
-            'logo.required_without' => '    الصوره مطلوبه',
+            'email.unique' => ' البريد الالكتروني  مستخدم من قبل',
+            'mobile.unique' => ' رقم الهاتف مستخدم من قبل',
+            'logo.required_without' => 'الصوره مطلوبه',
 
 
         ];

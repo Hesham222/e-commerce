@@ -119,6 +119,7 @@
 <script src="{{asset('assets/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>
 
 <script src="{{asset('assets/admin/js/scripts/modal/components-modal.js')}}" type="text/javascript"></script>
+<script src="{{ url('js/admin_scripts.js') }}"></script>
 
 <script>
     $('#meridians1').timeDropper({

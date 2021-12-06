@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+use App\Observers\MainCategoryObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -15,7 +17,10 @@ class MainCategory extends Model
     protected $hidden = ['created_at','updated_at'];
     public $timestamps = true;
 
-
+    protected static function boot(){
+        parent::boot();
+        MainCategory::observe(MainCategoryObserver::class);
+    }
 
     public function scopeActive($query){
         return $query ->where('active',1);
@@ -41,6 +46,14 @@ class MainCategory extends Model
     //الكاتجورى بتحتووي ع متاجر كتير لكن كل تاجر بينتمي لكاتجورى واحد
     public function vendors(){
         return $this ->hasMany('App\Models\Vendor','category_id');
+    }
+
+    public function scopeDefaultCategory($query){
+        return $query -> where('translation_of',0);
+    }
+
+    public function subCategories(){
+        return $this -> hasMany('App\Models\SubCategory','category_id');
     }
 
 

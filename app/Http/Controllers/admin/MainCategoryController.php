@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 
 
+use Illuminate\Support\Str;
 use App\Models\MainCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,15 +141,44 @@ class MainCategoryController extends Controller
     }
     public function destroy($id){
         try {
-            $delete_category = MainCategory::with('categories')->find($id);
+            $delete_category = MainCategory::find($id);
             if (!$delete_category) {
                 return redirect()->route('admin.maincategories')->with(['error' => 'هذا القسم غير موجود ']);
             }
-            $delete_category ->delete();
+//لما يكون قسم ليه متااجر مينفعش تمسحه عادي كده لازن تتاكد هو عنده نتاجر ولا لاء
+            $vendors = $delete_category -> vendors();
+            if(isset($vendors) && $vendors -> count() > 0){
+                return redirect()->route('admin.maincategories')->with(['error' => 'لا يمكن حذف هذا القسم ']);
+            }
+            // مبتمسحش الا من اول  فولدر الصور وكل الصور عندي متخزنه بالمسار من اوله ف بستخدم ال س ت ر عشان اقوله يقطع من اول الاسيت ل  unlink
+            $image =  Str::after($delete_category -> photo,'assets/');
 
+            $img = base_path('assets/'.$image);// بتجيب مسار الصوره ع اللابتوب عندي
+            unlink($img);
+            //delete translation languages
+            $delete_category -> categories() ->delete();
+            $delete_category ->delete();
             return redirect()->route('admin.maincategories')->with(['success' => 'تم الحذف بنجاح ']);
         }catch(\Exception $ex){
+           // return $ex;
+            return redirect()->route('admin.maincategories')->with(['error' => 'هناك خطأ ما يرجي المحاوله فيما بعد ']);
+        }
+    }
 
+    public function changeStatus($id){
+        try{
+
+            $main_category = MainCategory::find($id);
+
+            if (!$main_category)
+                return redirect()->route('admin.maincategories')->with(['error' => 'هذا القسم غير موجود ']);
+
+            $status = $main_category -> active == 0 ? 1 :0;
+            $main_category ->update(['active' => $status]);
+
+            return redirect()->route('admin.maincategories')->with(['success' => 'تم تحديث الحاله بنجاح ']);
+
+        }catch(\Exception $ex){
             return redirect()->route('admin.maincategories')->with(['error' => 'هناك خطأ ما يرجي المحاوله فيما بعد ']);
         }
     }

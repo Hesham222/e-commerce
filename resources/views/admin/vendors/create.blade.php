@@ -121,20 +121,19 @@
 
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6 ">
+                                                        <div class="col-md-12 ">
                                                             <div class="form-group">
-                                                                <label for="projectinput1">  العنوان   </label>
-                                                                <input type="text"  id="pac-input"
+                                                                <label for="projectinput1">  كلمه المرور   </label>
+                                                                <input type="password"  id="password"
                                                                     class="form-control"
                                                                     placeholder=""
-                                                                    name="address">
-                                                                 @error("address")
+                                                                    name="password">
+                                                                 @error("password")
                                                                 <span class="text-danger">{{$message}}</span>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mt-1">
@@ -150,6 +149,22 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6 ">
+                                                            <div class="form-group">
+                                                                <label for="projectinput1">  العنوان   </label>
+                                                                <input type="text"  id="pac-input"
+                                                                    class="form-control"
+                                                                    placeholder=""
+                                                                    name="address">
+                                                                 @error("address")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
 
 
                                         </div>
@@ -363,6 +378,6 @@
         $("#longitude").val(Lng);
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT26MvxvXW84xVQWeolidWWfttHWkEn-A&libraries=places&callback=initAutocomplete&language=ar&region=EG
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDo8_gNJxA9JSzlBdKA64PkTtgqOcYT6P4&libraries=places&callback=initAutocomplete&language=ar&region=EG
      async defer"></script>
 @stop

@@ -11,8 +11,8 @@ class Vendor extends Model
 
     protected $table = 'vendors';
 
-    protected $fillable = ['mobile','address','name','email','active','logo','category_id','created_at','updated_at'];
-    protected $hidden = ['category_id','created_at','updated_at'];
+    protected $fillable = ['latitude', 'longitude','id','mobile','address','password','name','email','active','logo','category_id','created_at','updated_at'];
+    protected $hidden = ['category_id','created_at','updated_at','password'];
     public $timestamps = true;
 
 
@@ -20,7 +20,7 @@ class Vendor extends Model
         return $query ->where('active',1);
     }
     public function scopeSelection($query){
-        return $query ->select('id','name','category_id','logo','mobile');
+        return $query ->select('id','name','email','latitude','longitude','active','mobile','password','category_id','logo','mobile');
     }
 
     public function getLogoAttribute($val){
@@ -34,6 +34,11 @@ class Vendor extends Model
     }
 
     public function getActive(){
-        return $this ->active == 1 ? ' مفعل'  : 'غير مفعل' ;
+        return $this ->active == 1 ? 'مفعل ' : 'غير مفعل';
+    }
+    public function setPasswordAttribute($password){
+        if(!empty($password)){
+            $this -> attributes['password'] = bcrypt($password);
+        }
     }
 }

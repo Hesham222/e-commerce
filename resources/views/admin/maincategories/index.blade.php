@@ -73,8 +73,15 @@
                                                                 <a href="{{ route('admin.maincategories.delete',$category ->id) }}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
 
-                                                                 <a href=""
-                                                                   class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">تفعيل</a>
+                                                                 <a href="{{ route('admin.maincategories.status',$category ->id) }}"
+                                                                   class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                   @if ($category -> active ==0 )
+                                                                        تفعيل
+                                                                    @else
+                                                                        الغاء التفعيل
+
+                                                                   @endif
+                                                                </a>
 
 
                                                             </div>
