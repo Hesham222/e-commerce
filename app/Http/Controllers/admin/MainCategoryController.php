@@ -15,7 +15,9 @@ use App\Http\Requests\MainCategoreyRequest;
 class MainCategoryController extends Controller
 {
     public function index(){
-         $default_lang = get_default_lang();
+
+
+        $default_lang = get_default_lang();
        $categories = MainCategory::where('translation_lang',$default_lang)->selection() ->get();
         return view('admin.maincategories.index',compact('categories'));
     }
@@ -27,7 +29,8 @@ class MainCategoryController extends Controller
     public function store(MainCategoreyRequest $request){
 
         try {
-            $main_categorries = collect($request -> categorey);
+             $main_categorries = collect($request -> categorey);
+             //print_r($main_categorries);die;
 
             $filter = $main_categorries ->filter(function ($value, $key) {
                 return $value['abbr'] == get_default_lang();

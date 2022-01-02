@@ -36,11 +36,13 @@ class VendorsController extends Controller
                 $request->request->add(['active' => 0]);
             else
                 $request->request->add(['active' => 1]);
- 
+
             $filePath = "";
             if ($request->has('logo')) {
                 $filePath = uploadImage('vendors', $request->logo);
             }
+
+
 
             $vendor = Vendor::create([
                 'name' => $request->name,
@@ -52,8 +54,8 @@ class VendorsController extends Controller
                 'password' => $request->password,
                 'category_id' => $request->category_id,
                 //الاحداثيات بتاعت جوجل ماب
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
+                // 'latitude' => $request->latitude,
+                // 'longitude' => $request->longitude,
 
             ]);
 
@@ -62,7 +64,7 @@ class VendorsController extends Controller
             return redirect()->route('admin.vendors')->with(['success' => 'تم الحفظ بنجاح']);
 
         } catch (\Exception $ex) {
-            //return $ex;
+            return $ex;
             return redirect()->route('admin.vendors')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
 
         }

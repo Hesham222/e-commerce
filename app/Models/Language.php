@@ -22,7 +22,7 @@ class Language extends Model
         return $query ->select('name','abbr','direction','active');
     }
 
-    public function getAtive(){
+    public function getActive(){
         return $this ->active == 1 ? ' مفعل'  : 'غير مفعل' ;
     }
 }

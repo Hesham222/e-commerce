@@ -47,9 +47,9 @@
                                         class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
+                                                <th>الرقم التعريفي</th>
                                                 <th>القسم</th>
-                                                <th> اللغه</th>
-                                                <th> الصوره</th>
+                                                <th> القسم الرئيسي</th>
                                                 <th>الحالة</th>
                                                 <th>الإجراءات</th>
                                             </tr>
@@ -59,28 +59,28 @@
                                             @isset($subCategories)
                                                 @foreach($subCategories as $subCategory)
                                                     <tr>
+                                                        <td>{{$subCategory -> id}}</td>
                                                         <td>{{$subCategory -> name}}</td>
-                                                        <td>{{get_default_lang()}}</td>
-                                                        <td><img src="{{$subCategory -> photo}}" width="70px" height="70px"></td>
+                                                        <td>{{$subCategory->MainCategory->name}}</td>
                                                         <td>{{$subCategory -> getActive()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href=""
+                                                                <a href="{{  url('admin/Sub_categories/add-edit-category',$subCategory -> id) }}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
 
-                                                                <a href=""
+                                                                <a href="{{ route('admin.SubCategory.delete',$subCategory -> id) }}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
 
                                                                  <a href=""
                                                                    class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
-                                                                   {{-- @if ($subCategory -> active ==0 )
+                                                                   @if ($subCategory -> active ==0 )
                                                                         تفعيل
                                                                     @else
                                                                         الغاء التفعيل
 
-                                                                   @endif --}}
+                                                                   @endif
                                                                 </a>
 
 

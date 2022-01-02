@@ -21,11 +21,17 @@
     </section>
     <section class="content">
       <div class="container-fluid">
-        <form class="categoryForm" id="categoryForm" action="{{ url('admin/Sub_categories/add-edit-category') }}" method="post" enctype="multipart/form-data">
+        <form class="categoryForm" id="categoryForm"
+        @if (empty($subcategorydata['id']))
+        action="{{ url('admin/Sub_categories/add-edit-category') }}"
+        @else
+        action="{{ url('admin/Sub_categories/add-edit-category',$subcategorydata['id']) }}"
+        @endif
+        method="post" enctype="multipart/form-data">
             @csrf
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">اضافه قسم فرعي</h3>
+              <h3 class="card-title">{{ $title }}</h3>
 
          {{-- @if ($errors->any())
             <div class="alert alert-danger" style="margin-top: 10px;"></div>
@@ -41,7 +47,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                       <label>اسم القسم الفرعي </label>
-                      <input class="form-control" id="name" name="name" type="text" placeholder="ادخل اسم القسم الفرعي ">
+                      <input class="form-control" id="name" name="name" type="text" placeholder="ادخل اسم القسم الفرعي "
+                      @if (!empty($subcategorydata['id']))
+                        value="{{ $subcategorydata->name }}"
+                    @else
+                        value="{{ old('name') }}"
+                      @endif
+                      >
                       @error('name')
                       <span class="text-danger"> {{$message}}</span>
                       @enderror
@@ -53,7 +65,12 @@
                       <select name="parent_id" id="parent_id" class="form-control select2" style="width: 100%;">
                         <option value=""></option>
                         @foreach ($getMainCategories as $getMainCategory)
-                            <option value="{{ $getMainCategory ->id }}">{{ $getMainCategory ->name }}</option>
+                            <option value="{{ $getMainCategory ->id }}"
+                            @if (!empty($subcategorydata['parent_id']) && $subcategorydata['parent_id'] == $getMainCategory ->id  )
+                                selected
+                            @endif
+
+                            >{{ $getMainCategory ->name }}</option>
                         @endforeach
                       </select>
                       @error('parent_id')

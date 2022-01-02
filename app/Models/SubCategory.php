@@ -11,7 +11,7 @@ class SubCategory extends Model
 
     protected $table = 'sub_categories';
 
-    protected $fillable = ['translation_lang','translation_of','name','slug','active','photo','created_at','updated_at'];
+    protected $fillable = ['translation_lang','translation_of','name','slug','active','photo','created_at','updated_at','parent_id'];
     protected $hidden = ['created_at','updated_at'];
     public $timestamps = true;
 
@@ -35,7 +35,10 @@ class SubCategory extends Model
     }
 
     public function MainCategory(){
-        return $this -> belongsTo('App\Models\MainCategory','category_id');
+        return $this -> belongsTo('App\Models\MainCategory','parent_id');
+    }
+    public function scopeDefaultCategory($query){
+        return $query -> where('translation_of',0);
     }
 
 }

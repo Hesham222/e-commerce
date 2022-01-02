@@ -47,6 +47,7 @@
                                         class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
+                                                <th>الرقم التعريفي</th>
                                                 <th>القسم</th>
                                                 <th> اللغه</th>
                                                 <th> الصوره</th>
@@ -59,6 +60,7 @@
                                             @isset($categories)
                                                 @foreach($categories as $category)
                                                     <tr>
+                                                        <td>{{$category -> id}}</td>
                                                         <td>{{$category -> name}}</td>
                                                         <td>{{get_default_lang()}}</td>
                                                         <td><img src="{{$category -> photo}}" width="70px" height="70px"></td>

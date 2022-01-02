@@ -20,7 +20,7 @@ class LanguagesController extends Controller
     public function store(LanguageRequest $request){
         try{
             if (!$request->has('active'))
-            $request->request->add(['active' => 0]);
+            $request->request->add(['active' => 0]); 
         else
             $request->request->add(['active' => 1]);
 

@@ -62,7 +62,7 @@
                                                         <td>{{$language -> name}}</td>
                                                         <td>{{$language -> abbr}}</td>
                                                         <td>{{$language -> direction}}</td>
-                                                        <td>{{$language -> getAtive()}}</td>
+                                                        <td>{{$language -> getActive()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">

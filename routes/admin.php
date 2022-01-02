@@ -67,6 +67,8 @@ Route::group(['namespace'=>'Admin','middleware' => 'auth:admin'], function() {
         Route::get('/','SubCategoryController@index')->name('admin.subcategories');
 
         Route::match(['get','post'],'add-edit-category/{id?}','SubCategoryController@addEditSubCategory');
+        Route::get('delete/{id}','SubCategoryController@destroy')->name('admin.SubCategory.delete');
+
 
         // Route::get('create','SubCategoryController@create')->name('admin.subcategories.create');
         // Route::post('store','SubCategoryController@store')->name('admin.subcategories.store');
